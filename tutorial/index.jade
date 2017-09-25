@@ -1,0 +1,225 @@
+.chapter(data-title='RingCentral for Swift Tutorial')
+  .step(data-title='Welcome!', data-file='README.md', data-highlight='1-2')
+    :markdown
+      ## Call Analytics for iOS
+
+      This tutorial shows you how to build an iOS app and use the RingCentral Swift SDK to read call-log data from a RingCentral account then display the information on the screen.
+
+      ### Prerequisites
+      * You must have a RingCentral developer account. If you don't have one, click [here](https://developer.ringcentral.com) to create a free developer account.
+      * You need to have basic knowledge of how to build an iOS app.
+
+      You also have to [create a RingCentral app](https://developer.ringcentral.com/library/getting-started.html) with the "Read Call Log" permission. And retrieve the AppKey and AppSecret for using in this application.
+
+  .step(data-title='Let\'s start', data-file='README.md', data-highlight='4-5')
+    :markdown
+      ### Create a new iOS project
+      Create a Single View app and give it a name “Call Analytics”.
+
+      Open Terminal window and browse to the “Call Analytics” folder and run the following command
+
+      `$ brew install carthage`
+
+      If you already had carthage installed, you may want to update with the latest version
+
+      `$ brew update carthage`
+
+      Create a "Carthage" file under the "Call Analytics" folder and copy/paste the following line to the file
+
+      `github "ringcentral/ringcentral-swift"`
+
+      Now in Terminal window, run the command below:
+
+      `$ carthage update --platform iOS`
+
+  .step(data-title='')
+    :markdown
+      ### Add RingCentral framework and it's dependencies to the project
+
+      Open the iOS project in XCode and goto the project settings. Select the "General" tab and from the “Embedded Binaries” section, click the + button and browse to the “Carthage/Build/iOS” folder under the project and add the frameworks to the project as shown below.
+
+      ![](images/image00.png)
+
+  .step(data-title='', data-file='Call Analytics/Credentials.swift', data-highlight='9-13')
+    :markdown
+      ### Specify RingCentral app credentials
+      Add a new file named “Credentials.swift” to the project. And specify the RingCentral AppKey and AppSecret.
+
+  .step(data-title='', data-file='Call Analytics/AppDelegate.swift', data-highlight='17-23')
+    :markdown
+      ### Create a RingCentral SDK instance
+      Open the AppDelegate.swift file. Define a RingCentral client instance and initialize it with the AppKey and AppSecret.
+
+      If your RingCentral app is in production, change the production flag to "true"
+
+      `rc = RestClient(appKey: Configs.AppKey, appSecret: Configs.AppSecret, production: true)`
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='24-46')
+    :markdown
+      ## Create a login view
+      We need a login view for users to enter their login credentials for login to their own RingCentral account.
+
+      ### Define a navigation bar
+      Open the Main.storyboard then select the default View Controller and drag and drop a Navigation Bar and a bar button as shown below
+
+      ![](images/image02.png)
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='68-94')
+    :markdown
+      ### Define a login form
+      Then drag and drop a view container (UIView) to the main view, and add 3 text fields (UITextField) as shown below
+
+      ![](images/image03.png)
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='47-67')
+    :markdown
+      ### Define a menu button form
+      Now drag and drop another view container (UIView) to the main view, and add a button (UIButton) as shown below
+
+      ![](images/image04.png)
+
+  .step(data-title='', data-file='Call Analytics/ViewController.swift', data-highlight='15-20')
+    :markdown
+      ### Connect UIs to code
+      Now click the Assistant button in the Xcode toolbar and connect the UIs to code
+
+      ![](images/image_connect_uis.png)
+
+  .step(data-title='', data-file='Call Analytics/ViewController.swift', data-highlight='52')
+    :markdown
+      ### Connect the Login button to code
+      The login button is the right button on the Navigation bar.
+
+      ![](images/image_navbar.png)
+
+  .step(data-title='', data-file='Call Analytics/ViewController.swift', data-highlight='92-95')
+    :markdown
+      ### Connect the Call Logs button to code
+      The "Call Logs" button is the button inside the menu button form.
+
+      ![](images/image_connect_calllogbtn.png)
+
+  .step(data-title='', data-file='Call Analytics/ViewController.swift', data-highlight='52-82')
+    :markdown
+      ### Implement the rightNavBarBtnClicked function
+      Inside the function, we implement code to login and logout. And we toggle the view between login form and menu button form accordingly.
+
+  .step(data-title='', data-file='Call Analytics/ViewController.swift', data-highlight='71-80')
+    :markdown
+      ### Login
+      To login RingCentral account, we call the `authorize()` function passing the username, password and the extension if it is provided.
+
+      If login is successful, we toggle the view to show the menu button view and change the right navigation bar button text to "Logout".
+
+      ![](images/image_login.png)
+
+  .step(data-title='', data-file='Call Analytics/ViewController.swift', data-highlight='53-59')
+    :markdown
+      ### Logout
+      To logout, we call the `revoke()` function and reset the access token, then toggle the view to show the login form and change the right navigation bar button text to "Login".
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='0')
+    :markdown
+      ### Create a CallInfoViewController
+      We create a new file and select the Cocoa Touch class type and name it `CallInfoViewController`
+
+      ![](images/image05.png)
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='0')
+    :markdown
+      ### Create a CallInfoViewController
+      Then we open the Main.storyboard then drag and drop a new View Controller to the storyboard
+
+      ![](images/image_dd_vc.png)
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='0')
+    :markdown
+      ### Create a CallInfoViewController
+      Now, click the Identity inspector then select the `CallInfoViewController` class and specify the Identity Storyboard ID as “calllogview”
+
+      ![](images/image_assign_class.png)
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='136-160')
+    :markdown
+      ### Add UI components to the view
+      We create a navigation bar
+
+      ![](images/image_navbar2.png)
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='328-472')
+    :markdown
+      ### Add UI components to the view
+      We create an input form, where we define UI components for users to specify reading parameters.
+
+      ![](images/image07.png)
+
+  .step(data-title='', data-file='Call Analytics/Base.lproj/Main.storyboard', data-highlight='161-327')
+    :markdown
+      ### Add UI components to the view
+      And we create an output view for displaying call-log data.
+
+      ![](images/image_output_view.png)
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='184,210')
+    :markdown
+      ### Connect the Navigation Bar buttons to code
+      Now click the Assistant button in the Xcode toolbar and connect the UIs to code
+
+      ![](images/image_navbar_uis.png)
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='16-26')
+    :markdown
+      ### Connect the input view UIs to code
+
+      ![](images/image_input_uis.png)
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='28-34')
+    :markdown
+      ### Connect the output view UIs to code
+
+      ![](images/image_output_uis.png)
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='36-39')
+    :markdown
+      ### Define values for pickers
+      The valid values of input parameters are specified in RingCentral API reference.
+
+      * 'direction' is the direction of a call as incoming call or outgoing call
+      * 'type' is the type of a call as voice or fax call
+      * 'transport' is the type of call service as PSTN or VoIP
+      * 'view' is the read mode as Simple or Detailed
+
+      [See CallLog API reference for details](https://developer.ringcentral.com/api-docs/latest/index.html#!#RefUserCallLog.html)
+
+      ![](images/image12.png)
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='117-163')
+    :markdown
+      ### Implement functions to collect user inputs
+      When a user specifies the parameters, we collect the inputs and keep them in the `calllogReq` variable.
+
+      ![](images/image12.png)
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='195')
+    :markdown
+      ### Implement the `ReadBtnClicked` function
+      When a user clicks the "Read" button, we call the `calllog()` function to fetch the call log data from RingCentral server
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='196-197,201')
+    :markdown
+      ### Parse the call log response
+      If the call was successful and we receive the response, we copy the records array to the `callLogRecords` array and populate the data to the list view.
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='236-295')
+    :markdown
+      ### Parse a call log record
+      We parse each record and display record information on the list.
+
+      ![](images/image13.png)
+
+  .step(data-title='', data-file='Call Analytics/CallInfoViewController.swift', data-highlight='297-350')
+    :markdown
+      ### Analytics
+      We also analyze call types and display statistic numbers.
+
+      ![](images/image14.png)
