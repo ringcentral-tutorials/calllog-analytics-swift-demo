@@ -1,0 +1,9 @@
+{
+  "commitish" : "0.4.9",
+  "iOS" : [
+    {
+      "hash" : "c1c9daf2062118aa9c845aa8fd008e145faf6cf485d0cec882a8b00e75679d03",
+      "name" : "RingCentral"
+    }
+  ]
+}
