@@ -128,11 +128,200 @@ module.exports = Backbone.Model.extend({// Initialize model and app
     }
 });
 
-},{"./Router":2,"./views/ViewsaurusView":8}],4:[function(require,module,exports){
+},{"./Router":2,"./views/ViewsaurusView":9}],4:[function(require,module,exports){
+var dpwMenu = function () {
+    var items = [
+        {
+            title: 'API Product',
+            items: [
+                {
+                    title: 'Voice',
+                    link: 'https://developer.ringcentral.com/api-products/voice'
+                },
+                {
+                    title: 'SMS/MMS',
+                    link: 'https://developer.ringcentral.com/api-products/sms'
+                },
+                {
+                    title: 'Fax',
+                    link: 'https://developer.ringcentral.com/api-products/fax'
+                },
+                {
+                    title: 'Glip - Team Messaging',
+                    link: 'https://developer.ringcentral.com/api-products/team-messaging'
+                },
+                {
+                    title: 'Data',
+                    link: 'https://developer.ringcentral.com/api-products/data'
+                },
+                {
+                    title: 'Configuration',
+                    link: 'https://developer.ringcentral.com/api-products/configuration'
+                }
+            ]
+        },
+        {
+            title: 'Use Cases',
+            link: 'https://developer.ringcentral.com/overview.html',
+            items: [
+                {
+                    title: 'CRM Integration',
+                    link: 'https://developer.ringcentral.com/overview/crm-integration.html'
+                },
+                {
+                    title: 'Send SMS and Fax',
+                    link: 'https://developer.ringcentral.com/overview/sms-fax.html'
+                },
+                {
+                    title: 'Click to Dial',
+                    link: 'https://developer.ringcentral.com/overview/click-to-dial.html'
+                },
+                {
+                    title: 'Call Reporting',
+                    link: 'https://developer.ringcentral.com/overview/call-reporting.html'
+                },
+                {
+                    title: 'WebRTC Voice',
+                    link: 'https://developer.ringcentral.com/overview/webrtc-voice.html'
+                },
+                {
+                    title: 'Data Sync',
+                    link: 'https://developer.ringcentral.com/overview/data-sync.html'
+                },
+                {
+                    title: 'Team Messaging',
+                    link: 'https://developer.ringcentral.com/overview/team-messaging.html'
+                }
+            ]
+        },
+        {
+            title: 'API & Docs',
+            link: 'https://developer.ringcentral.com/api-and-docs.html',
+            items: [
+                {
+                    title: 'Getting Started',
+                    link: 'https://developer.ringcentral.com/library/getting-started.html'
+                },
+                {
+                    title: 'Developer Guide',
+                    link: 'http://ringcentral-api-docs.readthedocs.io/',
+                    external: true
+                },
+                {
+                    title: 'Tutorials',
+                    link: 'https://ringcentral.github.io/tutorials/'
+                },
+                {
+                    title: 'API Reference',
+                    link: 'https://developer.ringcentral.com/api-docs/latest/index.html'
+                },
+                {
+                    title: 'Changelog',
+                    link: 'http://ringcentral-api-changelog.readthedocs.io/en/latest/',
+                    external: true
+                },
+                {
+                    title: 'SDKs',
+                    link: 'https://developer.ringcentral.com/library/sdks.html'
+                },
+                {
+                    title: 'Chatbots',
+                    link: 'https://developer.ringcentral.com/library/chatbots.html'
+                },
+                {
+                    title: 'API Explorer',
+                    link: 'https://developer.ringcentral.com/api-explorer/latest/index.html'
+                }
+            ]
+        },
+        {
+            title: 'App Gallery',
+            link: 'https://developer.ringcentral.com/app-gallery.html',
+            external: true
+        },
+        {
+            title: 'Services & Support',
+            link: 'https://developer.ringcentral.com/support.html',
+            items: [
+                {
+                    title: 'Services',
+                    link: 'https://developer.ringcentral.com/support/services.html'
+                },
+                {
+                    title: 'Academy',
+                    link: 'https://captivateprime.adobe.com/eplogin?groupid=1282&accesskey=8176c9a1nak1n',
+                    external: true
+                },
+                {
+                    title: 'Community',
+                    link: 'https://devcommunity.ringcentral.com/',
+                    external: true
+                },
+                {
+                    title: 'FAQ',
+                    link: 'http://ringcentral-faq.readthedocs.io/',
+                    external: true
+                },
+                {
+                    title: 'Blog',
+                    link: 'https://medium.com/ringcentral-developers',
+                    external: true
+                },
+                {
+                    title: 'Stack Overflow',
+                    link: 'http://stackoverflow.com/questions/tagged/ringcentral',
+                    external: true,
+                    notRCLink: true
+                }
+            ]
+        }
+    ];
+
+    this.render = function () {
+        var html = '<ul class="nav-top-menus-list">';
+        items.forEach(function (item) {
+            html += '<li class="nav-top-menus-item">';
+            if (item.link) {
+                html += '<a class="menu-title" href="' + item.link + '" target="' + getLinkTarget(item) + '">' + item.title + '</a>';
+            }
+            else {
+                html += '<a class="menu-title no-links">' + item.title + '</a>';
+            }
+
+            if (item.items) {
+                html += '<ul class="nav-top-menus-item-submenu header-top-menus-arrow">';
+
+                item.items.forEach(function (subItem) {
+                    html += subItem.notRCLink ? '<li class="external-link">' : '<li>';
+                    html += '<a href="' + subItem.link + '" target="' + getLinkTarget(subItem) + '">' + subItem.title + '</a>';
+                    html += '</li>';
+                });
+
+                html += '</ul>';
+            }
+
+            html += '</li>';
+        });
+        html += '</ul>';
+
+        $(".nav-top-menus").html(html);
+    };
+
+    function getLinkTarget(item) {
+        return item.external ? "_blank" : "";
+    }
+};
+
+module.exports = dpwMenu;
+},{}],5:[function(require,module,exports){
 var Viewsaurus = require('./Viewsaurus');
 var GoogleAnalytics = require('./GoogleAnalytics');
+var dpwMenu = require('./dpwMenu');
 
 $(function () {
+
+    new dpwMenu().render();
+
     // create GA client
     window.GAClient = new GoogleAnalytics("UA-57519112-3");
     var totalSteps = $('.saurus-prose .step').length;
@@ -140,9 +329,26 @@ $(function () {
     GAClient.trackPage(location.href, 0, 0, totalSteps);
     // create global viewsaurus object
     window.viewsaurus = new Viewsaurus();
+
+    var $prose = $(".saurus-prose");
+    var minHeight = $prose.height();
+    var minWidth = $prose.width();
+    $prose.resizable({
+        resize: function () {
+            $(".saurus-code").css('left', $prose.width());
+        },
+        minHeight: minHeight,
+        minWidth: minWidth
+    });
+
+    $(window).resize(function (event) {
+        if (event.target === window) {
+            $prose.resizable("option", "minHeight", $prose.height());
+        }
+    });
 });
 
-},{"./GoogleAnalytics":1,"./Viewsaurus":3}],5:[function(require,module,exports){
+},{"./GoogleAnalytics":1,"./Viewsaurus":3,"./dpwMenu":4}],6:[function(require,module,exports){
 var Range = ace.require('ace/range').Range;
 var explorerWidth = 270;
 
@@ -319,7 +525,7 @@ var CodeView = Backbone.View.extend({
 });
 
 module.exports = CodeView;
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 var explorerWidth = -270;
 var autoShowExplorer = 1280;
 
@@ -467,7 +673,7 @@ var ExplorerView = Backbone.View.extend({
 });
 
 module.exports = ExplorerView;
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 // Get Title for a step either from a data attribute or the first title tag
 function titleForStep($e) {
     var title = $e.attr('data-title');
@@ -706,7 +912,7 @@ var ProseView = Backbone.View.extend({
 });
 
 module.exports = ProseView;
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 var ProseView = require('./ProseView');
 var CodeView = require('./CodeView');
 var ExplorerView = require('./ExplorerView');
@@ -726,4 +932,4 @@ var ViewsaurusView = Backbone.View.extend({
 });
 
 module.exports = ViewsaurusView;
-},{"./CodeView":5,"./ExplorerView":6,"./ProseView":7}]},{},[4]);
+},{"./CodeView":6,"./ExplorerView":7,"./ProseView":8}]},{},[5]);
