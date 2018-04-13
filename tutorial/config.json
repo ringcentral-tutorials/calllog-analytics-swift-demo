@@ -1,6 +1,6 @@
 {
     "title": "RingCentral Call logs Analytics For iOS",
-    "repo": "ringcentral/tutorials/calllog-analytics-swift-demo",
+    "repo": "ringcentral-tutorials/calllog-analytics-swift-demo",
     "description": "Learn how to use the RingCentral SDK for Swift. Click the \"Start Tutorial\" button below to begin.",
     "heroku": false
 }
